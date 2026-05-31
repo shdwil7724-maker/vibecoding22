@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import { absoluteUrl } from "@/lib/feeds";
+import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,8 +17,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "정수환 | 자기소개",
-  description: "정수환의 자기소개 사이트 — GitHub Pages 배포 테스트",
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  alternates: {
+    types: {
+      "application/rss+xml": absoluteUrl("/rss.xml"),
+    },
+  },
   verification: {
     google: "RmXJo5G1J8wt-WwfXlCtOhk76d5qj3TdMJwz1GbseN4",
   },
@@ -30,8 +42,10 @@ export default function RootLayout({
       lang="ko"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col text-[#4a4458]">
+      <body className="flex min-h-full flex-col text-slate-900">
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

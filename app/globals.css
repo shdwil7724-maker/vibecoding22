@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fdf4ff;
-  --foreground: #4a4458;
-  --pastel-lavender: #e9d5ff;
-  --pastel-pink: #fce7f3;
-  --pastel-mint: #d1fae5;
-  --pastel-peach: #ffedd5;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --accent: #059669;
+  --accent-soft: #ecfdf5;
+  --card: #ffffff;
+  --muted: #64748b;
 }
 
 @theme inline {
@@ -20,11 +20,18 @@ body {
   min-height: 100%;
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  background-color: var(--pastel-lavender);
-  background-image:
-    radial-gradient(ellipse 80% 60% at 10% 20%, var(--pastel-pink) 0%, transparent 55%),
-    radial-gradient(ellipse 70% 50% at 90% 10%, var(--pastel-mint) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 70% at 50% 100%, var(--pastel-peach) 0%, transparent 55%),
-    linear-gradient(160deg, #fdf4ff 0%, #ede9fe 35%, #fce7f3 70%, #ecfdf5 100%);
-  background-attachment: fixed;
+  background:
+    radial-gradient(circle at top right, #ecfdf5 0%, transparent 40%),
+    radial-gradient(circle at bottom left, #eff6ff 0%, transparent 35%),
+    var(--background);
+}
+
+.prose-content p {
+  margin-bottom: 1rem;
+  line-height: 1.8;
+  color: #334155;
+}
+
+.prose-content p:last-child {
+  margin-bottom: 0;
 }
