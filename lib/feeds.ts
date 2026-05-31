@@ -65,6 +65,47 @@ export function getSitemapEntries(): SitemapEntry[] {
   return [...pageEntries, ...articleEntries];
 }
 
+/** sitemap lastmod — 네이버 호환 YYYY-MM-DD 형식 */
+function toSitemapLastmod(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+/** sitemap priority — 0.0~1.0 소수 1자리 (네이버·표준 호환) */
+function formatPriority(priority: number): string {
+  return priority.toFixed(1);
+}
+
+/** 홈 URL은 trailing slash 없이 통일 */
+function normalizeSitemapUrl(path: string): string {
+  if (path === "/") {
+    return siteConfig.url;
+  }
+  return absoluteUrl(path);
+}
+
+/** sitemap.xml XML 생성 (네이버 서치어드바이저 호환) */
+export function generateSitemapXml(): string {
+  const urls = getSitemapEntries()
+    .map((entry) => {
+      const loc = normalizeSitemapUrl(entry.path);
+      return `  <url>
+    <loc>${escapeXml(loc)}</loc>
+    <lastmod>${toSitemapLastmod(entry.lastModified)}</lastmod>
+    <changefreq>${entry.changeFrequency}</changefreq>
+    <priority>${formatPriority(entry.priority)}</priority>
+  </url>`;
+    })
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>`;
+}
+
 /** RSS 2.0 XML 생성 */
 export function generateRssXml(): string {
   const sortedArticles = [...articles].sort(
