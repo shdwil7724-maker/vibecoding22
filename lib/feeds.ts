@@ -17,7 +17,7 @@ export type SitemapEntry = {
   priority: number;
 };
 
-/** GitHub Pages 등 배포 환경을 반영한 절대 URL 생성 */
+/** 배포 URL 기준 절대 경로 생성 */
 export function absoluteUrl(path: string): string {
   const normalized = path.startsWith("/") ? path : `/${path}`;
   return `${siteConfig.url}${normalized}`;

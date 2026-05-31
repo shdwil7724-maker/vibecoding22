@@ -1,8 +1,31 @@
+/** 배포 환경에 맞는 사이트 절대 URL (sitemap, RSS, robots 등) */
+function resolveSiteUrl(): string {
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  }
+
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  if (process.env.GITHUB_PAGES === "true") {
+    const repoName =
+      process.env.GITHUB_REPOSITORY?.split("/")[1] ?? "vibecoding22";
+    return `https://shdwil7724-maker.github.io/${repoName}`;
+  }
+
+  return "https://vibecoding22.vercel.app";
+}
+
 export const siteConfig = {
   name: "스톡 인사이트",
   description:
     "주식 투자 초보자를 위한 기초 지식, 시장 분석, ETF·배당 정보를 쉽게 정리한 투자 가이드 블로그입니다.",
-  url: "https://shdwil7724-maker.github.io/vibecoding22",
+  url: resolveSiteUrl(),
   author: "정수환",
   email: "hello@example.com",
 };
