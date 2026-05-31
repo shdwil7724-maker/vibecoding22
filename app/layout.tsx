@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "정수환 | 자기소개",
   description: "정수환의 자기소개 사이트 — GitHub Pages 배포 테스트",
+  verification: {
+    google: "RmXJo5G1J8wt-WwfXlCtOhk76d5qj3TdMJwz1GbseN4",
+  },
 };
 
 export default function RootLayout({
