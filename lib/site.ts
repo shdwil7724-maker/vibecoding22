@@ -28,6 +28,7 @@ export const siteConfig = {
   url: resolveSiteUrl(),
   author: "정수환",
   email: "hello@example.com",
+  googleAnalyticsId: "G-C4ENSZKLY1",
 };
 
 export const navItems = [
